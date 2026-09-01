@@ -1,9 +1,9 @@
-FROM node:26.8.1-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
-RUN corepack enable
+RUN npm install -g yarn@1.22.19
 COPY ./package.json .
 COPY ./yarn.lock .
-RUN yarn install
+RUN yarn install --frozen-lockfile
 COPY . .
 ARG TMDB_V3_API_KEY
 ENV VITE_APP_TMDB_V3_API_KEY=${TMDB_V3_API_KEY}
